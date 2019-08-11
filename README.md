@@ -1,1 +1,2 @@
-# DEND_Final_Project
+# DEND_Capstone
+Final Capstone project for DEND
