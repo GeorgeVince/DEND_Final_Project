@@ -4,7 +4,20 @@ import json
 
 DATA_OUT="./data_out/"
 
-def reformat_csv(file_name):
+
+def reformat_csv_v2(file_name):
+    df = pd.read_csv(file_name)
+    mappings = create_random_mappings(df['Company Name'])
+    df['Company Name'] = df['Company Name'].apply(lambda x: mappings[x])
+    df.to_csv('data_out/SOURCE_3/2019_05.csv')
+
+## No long used
+def reformat_csv_v1(file_name):
+    """Given a source file, anonymise it and convert to JSON.
+    
+    Args:
+        sql (conn): pymsql connection object
+    """  
     
     print("reformating file...".format(file_name))
 
@@ -56,4 +69,5 @@ def swap_id(store_id):
 
 if __name__ == "__main__":
     
-    reformat_csv('data_in/2018_05_mm.csv')
+    #reformat_csv_v1('data_in/2018_05_mm.csv')
+    reformat_csv_v2('data_in/2019_07_mm.csv')
