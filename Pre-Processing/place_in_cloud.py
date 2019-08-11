@@ -32,4 +32,4 @@ for folder in source_folders:
 		print("Uploading {} from {}".format(folder, file))
 		local_file_path = "data_out/" + folder + "/" + file
 		s3_file_path = folder + "/" + file
-		upload_to_aws(local_file_path, bucket_name, file)
+		upload_to_aws(local_file_path, bucket_name, s3_file_path)
