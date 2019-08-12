@@ -9,7 +9,7 @@ def reformat_csv_v2(file_name):
     df = pd.read_csv(file_name)
     mappings = create_random_mappings(df['Company Name'])
     df['Company Name'] = df['Company Name'].apply(lambda x: mappings[x])
-    df.to_csv('data_out/SOURCE_3/2019_05.csv')
+    df.to_csv('data_out/SOURCE_3/2019_07.csv')
 
 ## No long used
 def reformat_csv_v1(file_name):
