@@ -1,5 +1,7 @@
+import boto3
+
 #CREDIT FOR THIS METHOD: https://alexwlchan.net/2017/07/listing-s3-keys/
-def get_matching_s3_keys(bucket, prefix='', suffix=''):
+def get_matching_s3_keys(s3, bucket, prefix='', suffix=''):
     """
     Generate the keys in an S3 bucket.
 
@@ -7,9 +9,6 @@ def get_matching_s3_keys(bucket, prefix='', suffix=''):
     :param prefix: Only fetch keys that start with this prefix (optional).
     :param suffix: Only fetch keys that end with this suffix (optional).
     """
-    s3 = boto3.client('s3', aws_access_key_id=ACCESS_KEY,
-                      aws_secret_access_key=SECRET_KEY)
-    
     kwargs = {'Bucket': bucket}
 
     # If the prefix is a single string (not a tuple of strings), we can
@@ -42,3 +41,23 @@ def find_nth(string, substring, n):
        return string.find(substring)
    else:
        return string.find(substring, find_nth(string, substring, n - 1) + 1)
+
+def extract_names(meter_in):
+	site_id = ""
+	region_id = ""
+	formatted_meter = ""
+
+	try:
+		site_id = meter_in[0:6]
+	except IndexError:
+		logging.info("Could not parse site_id from metername: {}".format(meter_in))
+	try:
+		region_id = meter_in[0:3]
+	except IndexError:
+		logging.info("Could not parse region_id from metername: {}".format(meter_in))
+	try:
+		formatted_meter = meter_in[(find_nth(meter_in,"_",2)+1):-4]
+	except IndexError:
+		logging.info("Could not find formatted meter from metername: {}".format(meter_in))
+
+	return (site_id, region_id, formatted_meter)
