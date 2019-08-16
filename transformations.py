@@ -4,6 +4,8 @@ import json
 
 from utils import extract_names
 
+FINAL_METER_NAMES = ['site_id','region','meter_name', 'date_time','consumption']
+
 def transform_s1_df(df):
 	"""Transforms SOURCE ONE files, into files ready for staging"""
 
@@ -24,7 +26,7 @@ def transform_s1_df(df):
 
 	#Convert TIMESTAMP to date
 	df_out['date_time'] = pd.to_datetime(df_out['TIMESTAMP'], unit='ms')
-	df_out = df_out[['site_id','region','meter_name', 'date_time', 'VALUE','consumption']]
+	df_out = df_out[FINAL_METER_NAMES]
 
 	return(df_out)
 
@@ -39,7 +41,7 @@ def transform_s2_df(df):
 
 	#Convert TIMESTAMP to date
 	df_out['date_time'] = pd.to_datetime(df_out['TIMESTAMP'], unit='ms')
-	df_out = df_out[['site_id','region','meter_name', 'date_time', 'consumption']]
+	df_out = df_out[FINAL_METER_NAMES]
 
 	return df_out
 
@@ -58,6 +60,6 @@ def transform_s3_df(df):
 	df_out['region'] = df_out['Company Name'].str[:3]
 	df_out['meter_name'] = "Main_Meter"
 
-	df_out = df_out[['site_id', 'region', 'meter_name', 'date_time', 'consumption']]
+	df_out = df_out[FINAL_METER_NAMES]
 	return df_out
 
