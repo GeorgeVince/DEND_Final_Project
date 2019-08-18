@@ -52,6 +52,9 @@ def transform_s3_df(df):
 	df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
 	#Melt DF
 	df_out = pd.melt(df, id_vars=['Company Name', 'Date'], var_name='time', value_name='consumption')
+
+	#Replace "-" chars with 0
+	df_out = df_out['consumption'].str.replace("-", '0')
 	
 	#Convert date and time columns to date_time
 	df_out['date_time'] = pd.to_datetime(df_out['Date']+" "+df_out['time'],format='%d/%m/%Y %H:%M')
