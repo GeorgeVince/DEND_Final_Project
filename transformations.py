@@ -24,8 +24,10 @@ def transform_s1_df(df):
 	#Remove first HH period (since it has no consumption)
 	df_out = df_out[1:]
 
-	#Convert TIMESTAMP to date
+	#Convert TIMESTAMP to rounded date
 	df_out['date_time'] = pd.to_datetime(df_out['TIMESTAMP'], unit='ms')
+	df_out['date_time'] = df_out['date_time'].dt.round('30min')
+
 	df_out = df_out[FINAL_METER_NAMES]
 
 	return(df_out)
@@ -41,6 +43,8 @@ def transform_s2_df(df):
 
 	#Convert TIMESTAMP to date
 	df_out['date_time'] = pd.to_datetime(df_out['TIMESTAMP'], unit='ms')
+	df_out['date_time'] = df_out['date_time'].dt.round('30min')
+
 	df_out = df_out[FINAL_METER_NAMES]
 
 	return df_out
