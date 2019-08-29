@@ -43,6 +43,8 @@ def find_nth(string, substring, n):
        return string.find(substring, find_nth(string, substring, n - 1) + 1)
 
 def extract_names(meter_in):
+	"""Takes in a meter name, and splits it out into site_id, region and formatted meter name"""
+	
 	site_id = ""
 	region_id = ""
 	formatted_meter = ""
